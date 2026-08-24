@@ -1,0 +1,111 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CarFriend — Sell your car to a real bidding war{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}CarFriend: Sell your car at real auction prices. Verified dealers bid live. No commission, ever.{% endblock %}">
+  <meta name="keywords" content="sell car, car auction, dealer bidding, used car marketplace, sell car india">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}CarFriend - Your Car's Real Bidding War{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Sell your car to verified dealers in live auction. Zero commission.{% endblock %}">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'website/Logos/carfriend.webp' %}">
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CarFriend - Sell Your Car at Real Auction Prices">
+  <meta name="twitter:description" content="Sell your car to verified dealers in live auction. Zero commission.">
+  <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'website/Logos/carfriend.webp' %}">
+
+  <link rel="icon" href="{% static 'website/Logos/Vector.webp' %}" type="image/webp">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CarFriend",
+    "url": "{{ request.scheme }}://{{ request.get_host }}/",
+    "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'website/Logos/Logo.webp' %}"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="{% url 'website:home' %}" class="nav-brand">
+      <span class="nav-logo-badge"><img src="{% static 'website/Logos/Logo.webp' %}" alt="CarFriend" height="50"></span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="{% url 'website:home' %}">Home</a>
+      <a href="{% url 'website:about' %}">About us</a>
+      <a href="{% url 'website:dealers' %}">For dealers</a>
+      <a href="{% url 'website:support' %}">Customer support</a>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <footer class="footer carbon">
+    <img class="footer-accent" src="{% static 'website/Logos/Logo.webp' %}" alt="" aria-hidden="true">
+    <div class="section-inner footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo-badge footer-logo-badge"><img src="{% static 'website/Logos/Logo.webp' %}" alt="CarFriend" height="40"></span>
+        <p class="tagline">A self-service marketplace connecting car sellers directly with verified dealers, all across India.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" aria-label="Twitter / X"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C4 15.6 1.7 10.7 4 5.8c2.6 3.2 6.4 5.2 10.5 5.4-1-4.4 4-6.6 7-3.6 1.3 0 2.5-.9 2.5-.9z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Sell</h4>
+          <ul>
+            <li><a href="{% url 'website:home' %}#how-it-works">How it works</a></li>
+            <li><a href="{% url 'website:home' %}#how-it-works">Self-inspection guide</a></li>
+            <li><a href="{% url 'website:home' %}#auction">One Click Buy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Dealers</h4>
+          <ul>
+            <li><a href="{% url 'website:dealers' %}">Join as a dealer</a></li>
+            <li><a href="{% url 'website:home' %}#auction">Live auctions</a></li>
+            <li><a href="{% url 'website:dealers' %}">Dealer app</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="{% url 'website:about' %}">About</a></li>
+            <li><a href="{% url 'website:privacy' %}">Privacy</a></li>
+            <li><a href="{% url 'website:terms' %}">Terms</a></li>
+            <li><a href="{% url 'website:support' %}">Support</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section-inner footer-bottom">
+      &copy; 2026 CarFriend. All transactions occur directly between sellers and dealers.
+    </div>
+  </footer>
+
+  <script src="{% static 'website/js/site.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
