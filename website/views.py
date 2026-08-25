@@ -390,68 +390,68 @@ class SupportEnquiryView(View):
     def post(self, request):
         import logging
         logger = logging.getLogger(__name__)
-    
-    try:
+        
         try:
-            data = json.loads(request.body or '{}')
-        except json.JSONDecodeError:
-            return JsonResponse({'status': 'error', 'message': 'Invalid JSON body.'}, status=400)
+            try:
+                data = json.loads(request.body or '{}')
+            except json.JSONDecodeError:
+                return JsonResponse({'status': 'error', 'message': 'Invalid JSON body.'}, status=400)
 
-        name = str(data.get('name', '')).strip()
-        phone = str(data.get('phone', '')).strip()
-        email = str(data.get('email', '')).strip()
-        account_number = str(data.get('account_number', '')).strip()
-        source = str(data.get('source', '')).strip() or SupportEnquiry.Source.WEBSITE
-        subject = str(data.get('subject', '')).strip()
-        message = str(data.get('message', '')).strip()
+            name = str(data.get('name', '')).strip()
+            phone = str(data.get('phone', '')).strip()
+            email = str(data.get('email', '')).strip()
+            account_number = str(data.get('account_number', '')).strip()
+            source = str(data.get('source', '')).strip() or SupportEnquiry.Source.WEBSITE
+            subject = str(data.get('subject', '')).strip()
+            message = str(data.get('message', '')).strip()
 
-        errors = {}
-        if len(name) < self.NAME_MIN:
-            errors['name'] = 'Enter your name.'
-        if not self.PHONE_RE.match(phone):
-            errors['phone'] = 'Enter a valid 10-digit number.'
-        if not self.EMAIL_RE.match(email):
-            errors['email'] = 'Enter a valid email address.'
-        if len(subject) < self.SUBJECT_MIN:
-            errors['subject'] = 'Enter a subject.'
-        if len(message) < self.MESSAGE_MIN:
-            errors['message'] = 'Message must be at least 10 characters.'
-        if source not in SupportEnquiry.Source.values:
-            source = SupportEnquiry.Source.WEBSITE
+            errors = {}
+            if len(name) < self.NAME_MIN:
+                errors['name'] = 'Enter your name.'
+            if not self.PHONE_RE.match(phone):
+                errors['phone'] = 'Enter a valid 10-digit number.'
+            if not self.EMAIL_RE.match(email):
+                errors['email'] = 'Enter a valid email address.'
+            if len(subject) < self.SUBJECT_MIN:
+                errors['subject'] = 'Enter a subject.'
+            if len(message) < self.MESSAGE_MIN:
+                errors['message'] = 'Message must be at least 10 characters.'
+            if source not in SupportEnquiry.Source.values:
+                source = SupportEnquiry.Source.WEBSITE
 
-        if errors:
+            if errors:
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Please fix the errors below.',
+                    'errors': errors,
+                }, status=400)
+
+            enquiry = SupportEnquiry.objects.create(
+                name=name,
+                phone=phone,
+                email=email,
+                account_number=account_number or None,
+                source=source,
+                subject=subject,
+                message=message,
+            )
+
             return JsonResponse({
-                'status': 'error',
-                'message': 'Please fix the errors below.',
-                'errors': errors,
-            }, status=400)
-
-        enquiry = SupportEnquiry.objects.create(
-            name=name,
-            phone=phone,
-            email=email,
-            account_number=account_number or None,
-            source=source,
-            subject=subject,
-            message=message,
-        )
-
-        return JsonResponse({
-            'status': 'success',
-            'message': f'Thank you, {name}! Our team is connecting with you under 12 hours.',
-            'enquiry_id': str(enquiry.id),
-            'enquiry': {
-                'name': enquiry.name,
-                'phone': enquiry.phone,
-                'email': enquiry.email,
-                'subject': enquiry.subject,
-                'created_time': enquiry.created_time,
-            },
-        })
-    
-    except Exception as e:
-        logger.error(f"SupportEnquiryView error: {str(e)}", exc_info=True)
-        return JsonResponse({
-            'status': 'error', 
-            'message': f'Server error: {str(e)}'
-        }, status=500)
+                'status': 'success',
+                'message': f'Thank you, {name}! Our team is connecting with you under 12 hours.',
+                'enquiry_id': str(enquiry.id),
+                'enquiry': {
+                    'name': enquiry.name,
+                    'phone': enquiry.phone,
+                    'email': enquiry.email,
+                    'subject': enquiry.subject,
+                    'created_time': enquiry.created_time,
+                },
+            })
+        
+        except Exception as e:
+            logger.error(f"SupportEnquiryView error: {str(e)}", exc_info=True)
+            return JsonResponse({
+                'status': 'error', 
+                'message': f'Server error: {str(e)}'
+            }, status=500)
