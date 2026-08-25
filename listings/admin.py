@@ -423,13 +423,13 @@ class NotificationAdmin(admin.ModelAdmin):
 # ============================================
 @admin.register(Lead)
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'name', 'brand', 'model', 'year', 'estimated_value', 'status', 'created_at')
+    list_display = ('phone', 'name', 'source', 'brand', 'model', 'year', 'estimated_value', 'status', 'created_at')
     search_fields = ('phone', 'name', 'brand', 'model', 'registration_number')
-    list_filter = ('status', 'brand', 'created_at')
+    list_filter = ('source', 'status', 'brand', 'created_at')
     readonly_fields = ('id', 'created_at', 'updated_at')
     fieldsets = (
         ('Contact', {
-            'fields': ('phone', 'name')
+            'fields': ('phone', 'name', 'source')
         }),
         ('Vehicle', {
             'fields': ('registration_number', 'brand', 'model', 'year', 'mileage')

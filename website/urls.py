@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/fetch-vehicle/', views.FetchVehicleDetailsView.as_view(), name='fetch_vehicle'),
     path('api/calculate-estimate/', views.CalculatePriceEstimateView.as_view(), name='calculate_estimate'),
     path('api/capture-lead/', views.CaptureLeadView.as_view(), name='capture_lead'),
+    path('api/dealer-lead/', views.CaptureDealerLeadView.as_view(), name='dealer_lead'),
 ]

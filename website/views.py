@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 import requests
 from django.http import JsonResponse
@@ -336,6 +337,39 @@ class CaptureLeadView(View):
             )
         except (TypeError, ValueError) as exc:
             return JsonResponse({'status': 'error', 'message': str(exc)}, status=400)
+
+        return JsonResponse({
+            'status': 'success',
+            'message': 'Lead captured successfully',
+            'lead_id': str(lead.id),
+        })
+
+
+class CaptureDealerLeadView(View):
+    """POST /api/dealer-lead/ — save a lead from the /dealers/ signup form."""
+
+    PHONE_RE = re.compile(r'^[6-9]\d{9}$')
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body or '{}')
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON body.'}, status=400)
+
+        name = str(data.get('name', '')).strip()
+        phone = str(data.get('phone', '')).strip()
+
+        if len(name) < 2:
+            return JsonResponse({'status': 'error', 'message': 'Enter your name.'}, status=400)
+        if not self.PHONE_RE.match(phone):
+            return JsonResponse({'status': 'error', 'message': 'Enter a valid 10-digit number.'}, status=400)
+
+        lead = Lead.objects.create(
+            phone=phone,
+            name=name,
+            source=Lead.Source.DEALER_SIGNUP,
+            status=Lead.Status.LEAD_CAPTURED,
+        )
 
         return JsonResponse({
             'status': 'success',

@@ -1,89 +1,256 @@
 {% extends "website/base.html" %}
+{% load static %}
 
 {% block title %}For Dealers — CarFriend{% endblock %}
 
 {% block content %}
 
-<section class="page-hero carbon section--carbon">
-  <div class="section-inner">
-    <div class="kicker">For dealers</div>
-    <h1>Why join CarFriend as a dealer?</h1>
-    <p>Access quality inspected cars. Bid in real-time. Win fair deals.</p>
+<!-- ============ HERO ============ -->
+<section class="section carbon section--carbon">
+  <div class="section-inner dealer-hero">
+    <div class="dealer-hero-copy">
+      <div class="kicker">Dealer partnership</div>
+      <h1>Bid smart. Earn more.<br><span class="accent">Grow every day.</span></h1>
+      <hr class="dealer-hero-divider">
+      <p class="body-lg">Live auctions, One Click Buy, and direct customer sales — all in one app, with zero commission and full transparency.</p>
+      <div class="dealer-hero-actions">
+        <div class="dealer-store-badges">
+          <a href="#" class="store-badge" aria-label="Download on the App Store">
+            <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+            <span class="badge-text"><span class="small">Download on the</span><span class="big">App Store</span></span>
+          </a>
+          <a href="#" class="store-badge" aria-label="Get it on Google Play">
+            <svg viewBox="0 0 512 512" fill="currentColor"><path d="M99.6 8.6C93.8 14.5 90.4 23.6 90.4 35.4v441.2c0 11.8 3.4 20.9 9.2 26.8l2.5 2.1L339 271.7v-3.4L101.1 6.5l-1.5 2.1z"/><path d="M416.5 313.7l-77.5-45v-3.4l77.5-45 1.8 1 91.8 52.2c26.2 14.9 26.2 39.2 0 54.1l-91.8 52.2-1.8-1.1z" opacity="0.85"/><path d="M418.3 313.7L339 234.4 99.6 473.8c9.1 9.6 24 10.8 41 1.2l277.7-161.3z"/><path d="M418.3 155.1L141.6 -6.2c-17-9.6-31.9-8.3-41 1.2L339 234.4l79.3-79.3z" opacity="0.7"/></svg>
+            <span class="badge-text"><span class="small">GET IT ON</span><span class="big">Google Play</span></span>
+          </a>
+        </div>
+      </div>
+      <div class="dealer-process">
+        <span>Find cars</span>
+        <span class="arrow">&#8594;</span>
+        <span>Bid smart</span>
+        <span class="arrow">&#8594;</span>
+        <span>Sell direct</span>
+        <span class="arrow">&#8594;</span>
+        <span>Earn more</span>
+      </div>
+    </div>
+
+    <div class="dealer-hero-image-wrap">
+      <img class="dealer-hero-image" src="{% static 'website/dealer/hero.webp' %}" alt="Dealer using the CarFriend app at his dealership">
+      <div class="dealer-badge b1"><div class="b-icon">0%</div><div><div class="b-title">Commission</div><div class="b-sub">Keep every rupee</div></div></div>
+      <div class="dealer-badge b2"><div class="b-icon">&#9889;</div><div><div class="b-title">Live auctions</div><div class="b-sub">8,000+ daily</div></div></div>
+      <div class="dealer-badge b3"><div class="b-icon">&#9989;</div><div><div class="b-title">One Click Buy</div><div class="b-sub">Never miss a deal</div></div></div>
+    </div>
   </div>
 </section>
 
+<!-- ============ FEATURE CAROUSEL ============ -->
 <section class="section">
   <div class="section-inner">
-    <div class="kicker" style="color: var(--green-text);">Subscription</div>
-    <h2 style="margin: 12px 0 24px;">Pick your plan</h2>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-tier">Basic</div>
-        <div class="pricing-price">₹5,000 <span>/ month</span></div>
-        <ul class="pricing-list">
-          <li>Real-time bidding on live auctions</li>
-          <li>One Click Buy counter-offers</li>
-          <li>Verified seller network</li>
-          <li>No platform fees on sales</li>
-        </ul>
-        <a href="#" class="btn btn-outline btn-sm">Subscribe to Basic</a>
-      </div>
-      <div class="pricing-card is-featured">
-        <div class="pricing-tier">Pro</div>
-        <div class="pricing-price">₹10,000 <span>/ month</span></div>
-        <ul class="pricing-list">
-          <li>Everything in Basic</li>
-          <li>List your own cars (OLX-style)</li>
-          <li>Priority auction alerts</li>
-          <li>Dedicated account support</li>
-        </ul>
-        <a href="#" class="btn btn-green btn-sm">Subscribe to Pro</a>
-      </div>
+    <div class="hiw-header" style="justify-content: center; text-align: center; flex-direction: column;">
+      <div class="kicker kicker--light">What you get</div>
+      <h2 style="margin-top: 12px;">Everything you need to win</h2>
+      <p class="body-lg" style="max-width: 560px; margin: 12px auto 0;">Four tools built to help you source better, bid faster, and sell direct — without giving up a rupee in commission.</p>
     </div>
 
-    <div class="kicker" style="color: var(--green-text);">Included with every plan</div>
-    <h2 style="margin: 12px 0 8px;">Everything you need to bid confidently</h2>
-    <ul class="checklist">
-      <li>Real-time bidding on live auctions</li>
-      <li>One Click Buy (OCB) counter-offers</li>
-      <li>List your own cars (OLX-style)</li>
-      <li>Verified seller network</li>
-      <li>No platform fees on sales</li>
-    </ul>
+    <div class="feature-carousel" id="featureCarousel">
+      <button type="button" class="carousel-arrow prev" id="carouselPrev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="carousel-arrow next" id="carouselNext" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carouselTrack">
+
+          <div class="carousel-slide">
+            <div class="carousel-slide-visual"><img src="{% static 'website/dealer/dealerapp/auction.webp' %}" alt="Live auction screen showing current highest bid and place bid button"></div>
+            <div class="carousel-slide-text">
+              <span class="kicker kicker--light">Live bidding</span>
+              <h3>8,000+ auctions, live, every single day</h3>
+              <p>Browse self-inspected listings, watch bids move in real time, and win the cars that fit your lot — no waiting, no middlemen.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-slide-visual"><img src="{% static 'website/dealer/dealerapp/OCB.webp' %}" alt="One Click Buy response screen showing seller's OCB price and match, raise, lower options"></div>
+            <div class="carousel-slide-text">
+              <span class="kicker kicker--light">One Click Buy</span>
+              <h3>Missed the auction? OCB gives you another shot</h3>
+              <p>When a seller isn't happy with the winning bid, the deal reopens to every dealer on the app. Fastest, best offer wins — simple as that.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-slide-visual"><img src="{% static 'website/dealer/dealerapp/sellcar.webp' %}" alt="Browse cars screen showing verified used car listings"></div>
+            <div class="carousel-slide-text">
+              <span class="kicker kicker--light">Sell direct</span>
+              <h3>List your own cars, straight to buyers</h3>
+              <p>Put your inventory in front of active buyers, OLX-style. Chat, negotiate, and close deals directly — on your terms, your price.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="carousel-slide-visual"><img src="{% static 'website/dealer/dealerapp/zero.webp' %}" alt="Zero commission screen showing you keep what you sell for"></div>
+            <div class="carousel-slide-text">
+              <span class="kicker kicker--light">Zero commission</span>
+              <h3>What you win, you keep. Every rupee.</h3>
+              <p>No cut on auctions. No cut on OCB. No cut on direct sales. One flat monthly fee is the only thing you'll ever pay CarFriend.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="carousel-dots" id="carouselDots"></div>
+    </div>
   </div>
 </section>
 
+<!-- ============ DEALER PARTNERSHIP ============ -->
+<section class="section carbon section--carbon">
+  <div class="section-inner" style="max-width: 640px; text-align: center;">
+    <div class="kicker" style="margin-bottom: 32px;">Dealer partnership</div>
+
+    <h2>Tamaro dhando.<br>Tamaro profit.</h2>
+
+    <p class="body-lg" style="color: var(--on-dark-body); margin-top: 20px;">
+      CarFriend bas platform aape chhe.<br>
+      <strong style="color: var(--on-dark-strong);">Dhando tamaro, profit tamaro.</strong>
+    </p>
+
+    <div class="dealer-price-box">
+      <div class="dpb-label">Founding dealer price</div>
+      <div class="dpb-row">
+        <span class="dpb-current">₹5,000</span>
+        <span class="dpb-per">/ month</span>
+        <span class="dpb-strike">₹10,000</span>
+      </div>
+      <div class="dpb-lock"><span>&#128274;</span>Aa price lifetime lock thai jashe</div>
+    </div>
+
+    <div class="dpb-label" style="margin-bottom: 22px;">What you get with CarFriend</div>
+    <ul class="checklist checklist--dark">
+      <li>Live auctions</li>
+      <li>One Click Buy</li>
+      <li>Direct customer listings</li>
+      <li>0% commission</li>
+      <li>Real-time bid alerts</li>
+      <li>Priority dealer support</li>
+    </ul>
+
+    <div style="margin: 36px 0;">
+      <button type="button" class="btn-dashed" id="openDealerModal">Aa price pakki kari do <span>&#8594;</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEAD MODAL ============ -->
+<div class="modal-overlay" id="dealerModalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="dealerModalClose" aria-label="Close">&#10005;</button>
+
+    <form class="dealer-lead-form" id="dealerLeadForm">
+      {% csrf_token %}
+      <div class="kicker kicker--light" style="margin-bottom: 10px;">Lock your price</div>
+      <h3 class="modal-title">Let's get you started</h3>
+      <p class="modal-subtitle">Share your details and our team will call to set up your dealer account.</p>
+
+      <div class="modal-field">
+        <label for="dealerLeadName">Your name</label>
+        <input type="text" id="dealerLeadName" name="name" placeholder="Rajesh Kapoor" autocomplete="name">
+        <div class="modal-error" id="dealerNameError">Enter your name</div>
+      </div>
+      <div class="modal-field">
+        <label for="dealerLeadPhone">Phone number</label>
+        <input type="tel" id="dealerLeadPhone" name="phone" placeholder="98765 43210" autocomplete="tel">
+        <div class="modal-error" id="dealerPhoneError">Enter a valid 10-digit number</div>
+      </div>
+
+      <button type="submit" class="btn btn-green btn-block">Aa price pakki kari do</button>
+    </form>
+
+    <div class="modal-success" id="dealerModalSuccess">
+      <div class="modal-success-check">&#10003;</div>
+      <h3>Price locked in.</h3>
+      <p>Team will connect soon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
 <section class="section section--paper-alt">
   <div class="section-inner">
-    <div class="kicker" style="color: var(--green-text);">How it works</div>
-    <h2 style="margin: 12px 0 8px;">From sign-up to sold, in four steps</h2>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">STEP 01</div>
-        <h3>Subscribe</h3>
-        <p>Pick Basic or Pro and complete dealership KYC verification.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">STEP 02</div>
-        <h3>Browse live auctions</h3>
-        <p>See self-inspected listings with full condition data, updated in real time.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">STEP 03</div>
-        <h3>Bid or counter</h3>
-        <p>Place live bids, or use One Click Buy to make a guaranteed counter-offer.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">STEP 04</div>
-        <h3>Close directly</h3>
-        <p>Agree a price, then handle payment and RC transfer directly with the seller.</p>
-      </div>
+    <div class="hiw-header" style="justify-content: center; text-align: center; flex-direction: column; margin-bottom: 40px;">
+      <div class="kicker kicker--light">The numbers</div>
+      <h2 style="margin-top: 12px;">This is happening right now</h2>
     </div>
-
-    <div style="text-align: center;">
-      <a href="#" class="btn btn-green">Subscribe Now</a>
+    <div class="stats-grid">
+      <div class="stats-tile"><div class="stats-value">8,000+</div><div class="stats-label">Auctions live daily</div></div>
+      <div class="stats-tile"><div class="stats-value">₹2.5Cr</div><div class="stats-label">Moving through the platform monthly</div></div>
+      <div class="stats-tile"><div class="stats-value">12 min</div><div class="stats-label">Average time to close</div></div>
+      <div class="stats-tile"><div class="stats-value">500+</div><div class="stats-label">Dealers bidding today</div></div>
     </div>
   </div>
 </section>
 
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section carbon section--carbon">
+  <div class="section-inner">
+    <div class="hiw-header" style="justify-content: center; text-align: center; flex-direction: column; margin-bottom: 40px;">
+      <div class="kicker">Dealer stories</div>
+      <h2 style="margin-top: 12px;">Not our words. Theirs.</h2>
+      <p class="body-lg" style="color: var(--on-dark-body); max-width: 560px; margin: 12px auto 0;">Real dealers, real lots, real numbers — this is what changes when the commission disappears.</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="quote">I used to chase five different wholesalers just to fill my lot. Now I open one app. Better cars, faster closes, and I keep what I earn.</p>
+        <div class="testimonial-foot">
+          <div class="testimonial-avatar" style="background: var(--amber-deep);">RK</div>
+          <div><div class="name">Rajesh Kapoor</div><div class="role">Premium Motors, Delhi</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="quote">Lost an auction by ten thousand rupees last month. OCB gave me a second chance and I still walked away with the car. No other platform does that.</p>
+        <div class="testimonial-foot">
+          <div class="testimonial-avatar" style="background: var(--green-deep);">SP</div>
+          <div><div class="name">Sanya Patel</div><div class="role">Shine Auto, Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="quote">Listing my own inventory takes two minutes and buyers message me directly. Five thousand a month pays for itself in one car.</p>
+        <div class="testimonial-foot">
+          <div class="testimonial-avatar" style="background: oklch(0.6 0.09 170);">AJ</div>
+          <div><div class="name">Ajay Joshi</div><div class="role">Quick Cars, Pune</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="section">
+  <div class="section-inner" style="max-width: 600px; text-align: center;">
+    <h2>Your lot is one download away.</h2>
+    <p class="body-lg" style="margin: 16px 0 32px;">Join 500+ dealers already bidding, buying, and selling with zero commission.</p>
+    <div class="dealer-store-badges" style="justify-content: center;">
+      <a href="#" class="store-badge" style="background: var(--ink);" aria-label="Download on the App Store">
+        <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+        <span class="badge-text"><span class="small">Download on the</span><span class="big">App Store</span></span>
+      </a>
+      <a href="#" class="store-badge" style="background: var(--ink);" aria-label="Get it on Google Play">
+        <svg viewBox="0 0 512 512" fill="currentColor"><path d="M99.6 8.6C93.8 14.5 90.4 23.6 90.4 35.4v441.2c0 11.8 3.4 20.9 9.2 26.8l2.5 2.1L339 271.7v-3.4L101.1 6.5l-1.5 2.1z"/><path d="M416.5 313.7l-77.5-45v-3.4l77.5-45 1.8 1 91.8 52.2c26.2 14.9 26.2 39.2 0 54.1l-91.8 52.2-1.8-1.1z" opacity="0.85"/><path d="M418.3 313.7L339 234.4 99.6 473.8c9.1 9.6 24 10.8 41 1.2l277.7-161.3z"/><path d="M418.3 155.1L141.6 -6.2c-17-9.6-31.9-8.3-41 1.2L339 234.4l79.3-79.3z" opacity="0.7"/></svg>
+        <span class="badge-text"><span class="small">GET IT ON</span><span class="big">Google Play</span></span>
+      </a>
+    </div>
+    <p class="small" style="margin-top: 24px; color: var(--text-secondary-light);">First month at ₹5,000. No setup fee. Cancel anytime.</p>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'website/js/dealer-carousel.js' %}"></script>
+<script src="{% static 'website/js/dealer-lead.js' %}"></script>
 {% endblock %}

@@ -584,7 +584,9 @@ class Notification(models.Model):
 # ---------------------------------------------------------------------------
 
 class Lead(models.Model):
-    """Organic leads captured from the home page price estimator."""
+    """Organic leads captured from the home page price estimator, and from
+    other lightweight lead-capture forms (e.g. the /dealers/ signup) that
+    only need contact info — see `source`."""
 
     class ConditionChoice(models.TextChoices):
         YES = 'yes', 'Yes'
@@ -605,35 +607,40 @@ class Lead(models.Model):
         INTERESTED = 'interested', 'Interested'
         CONVERTED = 'converted', 'Converted'
 
+    class Source(models.TextChoices):
+        PRICE_ESTIMATOR = 'price_estimator', 'Price Estimator'
+        DEALER_SIGNUP = 'dealer_signup', 'Dealer Signup'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     # Contact info
     phone = models.CharField(max_length=15)
     name = models.CharField(max_length=100, blank=True, null=True)
+    source = models.CharField(max_length=20, choices=Source.choices, default=Source.PRICE_ESTIMATOR)
 
-    # Vehicle info
+    # Vehicle info (price-estimator leads only)
     registration_number = models.CharField(max_length=20, blank=True, null=True)
-    brand = models.CharField(max_length=50)
-    model = models.CharField(max_length=50)
-    year = models.IntegerField()
-    mileage = models.IntegerField(help_text='Odometer reading in km')
+    brand = models.CharField(max_length=50, blank=True, null=True)
+    model = models.CharField(max_length=50, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    mileage = models.IntegerField(help_text='Odometer reading in km', blank=True, null=True)
 
-    # Condition
-    accident_history = models.CharField(max_length=3, choices=ConditionChoice.choices)
-    service_records = models.CharField(max_length=3, choices=ConditionChoice.choices)
-    ownership = models.CharField(max_length=10, choices=Ownership.choices)
-    insurance_status = models.CharField(max_length=10, choices=InsuranceStatus.choices)
+    # Condition (price-estimator leads only)
+    accident_history = models.CharField(max_length=3, choices=ConditionChoice.choices, blank=True, null=True)
+    service_records = models.CharField(max_length=3, choices=ConditionChoice.choices, blank=True, null=True)
+    ownership = models.CharField(max_length=10, choices=Ownership.choices, blank=True, null=True)
+    insurance_status = models.CharField(max_length=10, choices=InsuranceStatus.choices, blank=True, null=True)
 
-    # Estimated price
-    estimated_price_min = models.DecimalField(max_digits=12, decimal_places=2)
-    estimated_price_max = models.DecimalField(max_digits=12, decimal_places=2)
-    estimated_value = models.DecimalField(max_digits=12, decimal_places=2)
+    # Estimated price (price-estimator leads only)
+    estimated_price_min = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    estimated_price_max = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    estimated_value = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
-    # Pricing breakdown
-    base_price = models.DecimalField(max_digits=12, decimal_places=2)
-    depreciation_adjustment = models.DecimalField(max_digits=12, decimal_places=2)
-    mileage_adjustment = models.DecimalField(max_digits=12, decimal_places=2)
-    condition_adjustment = models.DecimalField(max_digits=12, decimal_places=2)
+    # Pricing breakdown (price-estimator leads only)
+    base_price = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    depreciation_adjustment = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    mileage_adjustment = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+    condition_adjustment = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.LEAD_CAPTURED)
 
@@ -646,4 +653,6 @@ class Lead(models.Model):
         verbose_name_plural = 'Leads'
 
     def __str__(self):
-        return f'{self.brand} {self.model} ({self.year}) - {self.phone}'
+        if self.brand and self.model:
+            return f'{self.brand} {self.model} ({self.year}) - {self.phone}'
+        return f'Dealer signup — {self.name or "Unknown"} ({self.phone})'
