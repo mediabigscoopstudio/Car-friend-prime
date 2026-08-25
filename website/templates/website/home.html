@@ -50,143 +50,48 @@
     <div class="hiw-header">
       <div>
         <div class="kicker">How it works</div>
-        <h2>Four steps on your phone. We handle the rest.</h2>
+        <h2>Four steps to your auction-ready listing.</h2>
       </div>
-      <div class="hiw-live"><span class="hiw-live-dot pulse-dot"></span>SELF-SCAN &middot; LIVE PREVIEW</div>
     </div>
 
-    <div class="hiw-body">
-      <div class="hiw-frame" id="hiwFrame">
-        <div class="hiw-phone" aria-hidden="true">
-          <div class="hiw-notch"></div>
-          <div class="hiw-screen">
-
-            <div class="hiw-topbar">
-              <button type="button" class="hiw-prev-btn" tabindex="-1">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-                Prev
-              </button>
-              <span class="hiw-step-pill" id="hiwTag">Exterior</span>
-            </div>
-
-            <p class="hiw-guidance">Match this angle, about 2m from the car</p>
-
-            <div class="hiw-reference">
-              <img id="hiwReference" src="{% static 'website/Hyundai/exterior/1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async">
-              <span class="hiw-reference-badge">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                Reference
-              </span>
-            </div>
-
-            <div class="hiw-yourphotos">
-              <div class="hiw-yourphotos-head">
-                <span class="hiw-yourphotos-label">Your photos</span>
-                <span class="hiw-yourphotos-count" id="hiwPhotoCount">01 / 05</span>
-              </div>
-              <div class="hiw-thumbs" id="hiwThumbs">
-                <div class="hiw-thumbgroup is-active" data-step="0">
-                  <button type="button" class="hiw-thumb" data-img="0" tabindex="-1"><img src="{% static 'website/Hyundai/exterior/1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="1" tabindex="-1"><img src="{% static 'website/Hyundai/exterior/2.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="2" tabindex="-1"><img src="{% static 'website/Hyundai/exterior/3.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="3" tabindex="-1"><img src="{% static 'website/Hyundai/exterior/4.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="4" tabindex="-1"><img src="{% static 'website/Hyundai/exterior/5.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <span class="hiw-thumb-add" tabindex="-1">+</span>
-                </div>
-                <div class="hiw-thumbgroup" data-step="1">
-                  <button type="button" class="hiw-thumb" data-img="0" tabindex="-1"><img src="{% static 'website/Hyundai/interior/1_1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="1" tabindex="-1"><img src="{% static 'website/Hyundai/interior/2_1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="2" tabindex="-1"><img src="{% static 'website/Hyundai/interior/3_1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="3" tabindex="-1"><img src="{% static 'website/Hyundai/interior/4_1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <span class="hiw-thumb-add" tabindex="-1">+</span>
-                </div>
-                <div class="hiw-thumbgroup" data-step="2">
-                  <button type="button" class="hiw-thumb" data-img="0" tabindex="-1"><img src="{% static 'website/Hyundai/engine/1_2.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="1" tabindex="-1"><img src="{% static 'website/Hyundai/engine/2_2.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <span class="hiw-thumb-add" tabindex="-1">+</span>
-                </div>
-                <div class="hiw-thumbgroup" data-step="3">
-                  <button type="button" class="hiw-thumb" data-img="0" tabindex="-1"><img src="{% static 'website/Hyundai/document/1_3.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <button type="button" class="hiw-thumb" data-img="1" tabindex="-1"><img src="{% static 'website/Hyundai/document/2_3.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-                  <span class="hiw-thumb-add" tabindex="-1">+</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="hiw-shot">
-              <img id="hiwShot" src="{% static 'website/Hyundai/exterior/1.webp' %}" alt="" width="500" height="500" decoding="async">
-              <div class="hiw-brackets"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
-              <div class="hiw-align-circle"></div>
-              <div class="hiw-align-badge"><span class="hiw-align-dot pulse-dot"></span>Align with guide</div>
-              <span class="hiw-shot-count" id="hiwShotCount">01 / 05</span>
-            </div>
-
-            <div class="hiw-capture-controls">
-              <button type="button" class="hiw-gallery-btn" tabindex="-1"><img id="hiwGalleryThumb" src="{% static 'website/Hyundai/exterior/1.webp' %}" alt="" width="500" height="500" loading="lazy" decoding="async"></button>
-              <button type="button" class="hiw-shutter-btn" tabindex="-1"></button>
-              <button type="button" class="hiw-flip-btn" tabindex="-1">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.2v-2a4 4 0 0 1 4-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.8v2a4 4 0 0 1-4 4H3"/></svg>
-              </button>
-            </div>
-
-            
-
-          </div>
-        </div>
+    <div class="howworks-container" id="hwCarousel" tabindex="-1">
+      <div class="howworks-phone">
+        <img id="hwImg" class="phone-image" src="{% static 'website/howtos/exterior.webp' %}" alt="Exterior inspection step in the CarFriend app" decoding="async"
+             data-exterior="{% static 'website/howtos/exterior.webp' %}"
+             data-interior="{% static 'website/howtos/interior.webp' %}"
+             data-engine="{% static 'website/howtos/engine.webp' %}"
+             data-docs="{% static 'website/howtos/docs.webp' %}">
       </div>
 
-      <div>
-        <div class="hiw-steps" id="hiwSteps">
-          <button type="button" class="hiw-step is-active" data-step="0">
-            <svg class="hiw-ring" width="34" height="34" viewBox="0 0 34 34">
-              <circle class="track" cx="17" cy="17" r="14" fill="none" stroke-width="3"/>
-              <circle class="progress" cx="17" cy="17" r="14" fill="none" stroke-width="3" transform="rotate(-90 17 17)"/>
-              <text x="17" y="21" text-anchor="middle">1</text>
-            </svg>
-            <span>
-              <span class="hiw-step-title" style="display:block;">Exterior scan</span>
-              <span class="hiw-step-desc">Front, back, both sides</span>
-            </span>
-          </button>
-          <button type="button" class="hiw-step" data-step="1">
-            <svg class="hiw-ring" width="34" height="34" viewBox="0 0 34 34">
-              <circle class="track" cx="17" cy="17" r="14" fill="none" stroke-width="3"/>
-              <circle class="progress" cx="17" cy="17" r="14" fill="none" stroke-width="3" transform="rotate(-90 17 17)"/>
-              <text x="17" y="21" text-anchor="middle">2</text>
-            </svg>
-            <span>
-              <span class="hiw-step-title" style="display:block;">Interior check</span>
-              <span class="hiw-step-desc">Seats, dashboard, odometer</span>
-            </span>
-          </button>
-          <button type="button" class="hiw-step" data-step="2">
-            <svg class="hiw-ring" width="34" height="34" viewBox="0 0 34 34">
-              <circle class="track" cx="17" cy="17" r="14" fill="none" stroke-width="3"/>
-              <circle class="progress" cx="17" cy="17" r="14" fill="none" stroke-width="3" transform="rotate(-90 17 17)"/>
-              <text x="17" y="21" text-anchor="middle">3</text>
-            </svg>
-            <span>
-              <span class="hiw-step-title" style="display:block;">Engine check</span>
-              <span class="hiw-step-desc">Bonnet up, engine bay in frame</span>
-            </span>
-          </button>
-          <button type="button" class="hiw-step" data-step="3">
-            <svg class="hiw-ring" width="34" height="34" viewBox="0 0 34 34">
-              <circle class="track" cx="17" cy="17" r="14" fill="none" stroke-width="3"/>
-              <circle class="progress" cx="17" cy="17" r="14" fill="none" stroke-width="3" transform="rotate(-90 17 17)"/>
-              <text x="17" y="21" text-anchor="middle">4</text>
-            </svg>
-            <span>
-              <span class="hiw-step-title" style="display:block;">Documents</span>
-              <span class="hiw-step-desc">RC, insurance, service history</span>
-            </span>
-          </button>
-        </div>
-
-        <div class="ocb-note">
-          <span class="ocb-note-dot"></span>
-          <p><strong>Auction not good enough?</strong> One Click Buy reopens your car to every subscribed dealer for an instant, guaranteed sale.</p>
-        </div>
+      <div class="howworks-steps" id="hwSteps">
+        <button type="button" class="howworks-step is-active" data-step="0">
+          <span class="howworks-step-num">1</span>
+          <span class="howworks-step-content">
+            <span class="howworks-step-title">Exterior scan</span>
+            <span class="howworks-step-desc">Front, back, both sides</span>
+          </span>
+        </button>
+        <button type="button" class="howworks-step" data-step="1">
+          <span class="howworks-step-num">2</span>
+          <span class="howworks-step-content">
+            <span class="howworks-step-title">Interior check</span>
+            <span class="howworks-step-desc">Seats, dashboard, odometer</span>
+          </span>
+        </button>
+        <button type="button" class="howworks-step" data-step="2">
+          <span class="howworks-step-num">3</span>
+          <span class="howworks-step-content">
+            <span class="howworks-step-title">Engine check</span>
+            <span class="howworks-step-desc">Bonnet up, engine bay in frame</span>
+          </span>
+        </button>
+        <button type="button" class="howworks-step" data-step="3">
+          <span class="howworks-step-num">4</span>
+          <span class="howworks-step-content">
+            <span class="howworks-step-title">Documents</span>
+            <span class="howworks-step-desc">RC, insurance, service history</span>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -262,20 +167,36 @@
     </div>
     <div class="listing-grid">
       <div class="listing-card">
-        <div class="listing-image stripe-a"><span class="listing-tag">SUV &middot; Petrol</span></div>
-        <div class="listing-body"><div class="name">Hyundai Creta 2022</div><div class="price">₹11,40,000</div></div>
+        <div class="listing-image"><img src="{% static 'website/buynow/creta.webp' %}" alt="Hyundai Creta 2022" loading="lazy" decoding="async"><span class="listing-tag">SUV &middot; Petrol</span></div>
+        <div class="listing-body">
+          <div class="name">Hyundai Creta 2022</div>
+          <div class="price">₹11,40,000</div>
+          <button type="button" class="btn btn-outline btn-sm buy-now-btn">Buy Now</button>
+        </div>
       </div>
       <div class="listing-card">
-        <div class="listing-image stripe-b"><span class="listing-tag">Hatchback &middot; Petrol</span></div>
-        <div class="listing-body"><div class="name">Maruti Baleno 2021</div><div class="price">₹6,85,000</div></div>
+        <div class="listing-image"><img src="{% static 'website/buynow/baleno.webp' %}" alt="Maruti Baleno 2021" loading="lazy" decoding="async"><span class="listing-tag">Hatchback &middot; Petrol</span></div>
+        <div class="listing-body">
+          <div class="name">Maruti Baleno 2021</div>
+          <div class="price">₹6,85,000</div>
+          <button type="button" class="btn btn-outline btn-sm buy-now-btn">Buy Now</button>
+        </div>
       </div>
       <div class="listing-card">
-        <div class="listing-image stripe-c"><span class="listing-tag">SUV &middot; Diesel</span></div>
-        <div class="listing-body"><div class="name">Tata Nexon 2023</div><div class="price">₹9,20,000</div></div>
+        <div class="listing-image"><img src="{% static 'website/buynow/nexon.webp' %}" alt="Tata Nexon 2023" loading="lazy" decoding="async"><span class="listing-tag">SUV &middot; Diesel</span></div>
+        <div class="listing-body">
+          <div class="name">Tata Nexon 2023</div>
+          <div class="price">₹9,20,000</div>
+          <button type="button" class="btn btn-outline btn-sm buy-now-btn">Buy Now</button>
+        </div>
       </div>
       <div class="listing-card">
-        <div class="listing-image stripe-d"><span class="listing-tag">Sedan &middot; Petrol</span></div>
-        <div class="listing-body"><div class="name">Honda City 2020</div><div class="price">₹8,10,000</div></div>
+        <div class="listing-image"><img src="{% static 'website/buynow/city.webp' %}" alt="Honda City 2020" loading="lazy" decoding="async"><span class="listing-tag">Sedan &middot; Petrol</span></div>
+        <div class="listing-body">
+          <div class="name">Honda City 2020</div>
+          <div class="price">₹8,10,000</div>
+          <button type="button" class="btn btn-outline btn-sm buy-now-btn">Buy Now</button>
+        </div>
       </div>
     </div>
   </div>
@@ -309,13 +230,13 @@
   <div class="section-inner app-band">
     <div>
       <h2>Take the auction wherever you go.</h2>
-      <p>Get live bid alerts, trigger One Click Buy, and track your sale — right from the app.</p>
+      <p>Real-time bids. Accept offers. Trigger OCB. All from your pocket.</p>
       <div class="store-chips">
-        <span class="store-chip">Download for iOS</span>
-        <span class="store-chip">Download for Android</span>
+        <a href="#" class="btn btn-outline">Download for iOS</a>
+        <a href="#" class="btn btn-outline">Download for Android</a>
       </div>
     </div>
-    <div class="phone-mock"><div class="screen stripe-phone"></div></div>
+    <img class="app-phone-shot" src="{% static 'website/carfriend_auction.webp' %}" alt="CarFriend live auction screen on a phone" loading="lazy" decoding="async">
   </div>
 </section>
 
@@ -357,6 +278,21 @@
     </div>
   </div>
 </section>
+
+<!-- ============ APP DOWNLOAD MODAL ============ -->
+<div class="modal-overlay" id="appDownloadOverlay" aria-hidden="true">
+  <div class="modal-box app-modal-box" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+    <button type="button" class="modal-close" id="appModalClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3 class="modal-title" id="appModalTitle">Download CarFriend</h3>
+    <p class="modal-subtitle">Get the app to browse, bid, and buy directly from dealers.</p>
+    <div class="app-modal-actions">
+      <a href="#" class="btn btn-outline">Get from App Store</a>
+      <a href="#" class="btn btn-outline">Get from Play Store</a>
+    </div>
+  </div>
+</div>
 
 <!-- ============ PRICE ESTIMATOR MODAL ============ -->
 <div class="modal-overlay" id="estimatorOverlay" aria-hidden="true">
