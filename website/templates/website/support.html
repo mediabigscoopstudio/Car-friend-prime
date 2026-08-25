@@ -1,4 +1,5 @@
 {% extends "website/base.html" %}
+{% load static %}
 
 {% block title %}Customer Support — CarFriend{% endblock %}
 {% block meta_description %}Get help with CarFriend: browse FAQs, reach us by email, phone, or chat, or send us a message.{% endblock %}
@@ -82,46 +83,73 @@
       <h2 style="color: var(--ink); margin-bottom: 8px;">Send us a message</h2>
       <p style="font-size: 14px; color: var(--text-secondary);">Fill this out and our support team will get back to you.</p>
 
-      <form id="contactForm" novalidate>
+      <form id="supportForm" novalidate>
+        {% csrf_token %}
         <div class="form-row">
           <div>
-            <label for="cf-name">Name</label>
-            <input type="text" id="cf-name" name="name" required autocomplete="name">
+            <label for="se-name">Name</label>
+            <input type="text" id="se-name" name="name" autocomplete="name">
+            <div class="modal-error" id="se-name-error">Enter your name</div>
           </div>
           <div>
-            <label for="cf-phone">Phone</label>
-            <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
+            <label for="se-phone">Phone</label>
+            <input type="tel" id="se-phone" name="phone" autocomplete="tel">
+            <div class="modal-error" id="se-phone-error">Enter a valid 10-digit number</div>
           </div>
         </div>
-        <label for="cf-email">Email</label>
-        <input type="email" id="cf-email" name="email" required autocomplete="email">
-        <label for="cf-message">Message</label>
-        <textarea id="cf-message" name="message" required></textarea>
-        <button type="submit" class="btn btn-green">Send message</button>
+        <div class="form-row">
+          <div>
+            <label for="se-email">Email</label>
+            <input type="email" id="se-email" name="email" autocomplete="email">
+            <div class="modal-error" id="se-email-error">Enter a valid email address</div>
+          </div>
+          <div>
+            <label for="se-account-number">Account number <span style="font-weight: 400; color: var(--text-secondary-light);">(optional)</span></label>
+            <input type="text" id="se-account-number" name="account_number" autocomplete="off">
+          </div>
+        </div>
+        <label for="se-source">I'm reaching out as a</label>
+        <select id="se-source" name="source">
+          <option value="website">Website visitor</option>
+          <option value="seller">Seller</option>
+          <option value="dealer">Dealer</option>
+        </select>
+        <label for="se-subject">Subject</label>
+        <input type="text" id="se-subject" name="subject" autocomplete="off">
+        <div class="modal-error" id="se-subject-error">Enter a subject</div>
+        <label for="se-message">Message</label>
+        <textarea id="se-message" name="message"></textarea>
+        <div class="modal-error" id="se-message-error">Message must be at least 10 characters</div>
+        <div class="modal-error" id="se-form-error">Something went wrong — please try again.</div>
+        <button type="submit" class="btn btn-green" id="supportSubmitBtn">Send message</button>
       </form>
-      <div class="form-success" id="contactFormSuccess">Thanks — we've got your message and will reply within one business day.</div>
     </div>
   </div>
 </section>
 
+<!-- ============ SUPPORT ENQUIRY CONFIRMATION MODAL ============ -->
+<div class="modal-overlay" id="supportModalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="supportModalClose" aria-label="Close">&#10005;</button>
+
+    <div class="modal-success is-visible">
+      <div class="modal-success-check">&#10003;</div>
+      <h3 id="supportModalThanks">Thank you!</h3>
+      <p id="supportModalSub">Our team is connecting with you under 12 hours.</p>
+
+      <div class="vehicle-summary-card" style="text-align: left; margin-top: 20px;">
+        <div class="row"><span>Name</span><span id="supportModalName"></span></div>
+        <div class="row"><span>Phone</span><span id="supportModalPhone"></span></div>
+        <div class="row"><span>Email</span><span id="supportModalEmail"></span></div>
+        <div class="row"><span>Subject</span><span id="supportModalSubject"></span></div>
+        <div class="row"><span>Submitted</span><span id="supportModalTime"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
-<script>
-  (function () {
-    var wrap = document.getElementById('contactFormWrap');
-    var form = document.getElementById('contactForm');
-    var success = document.getElementById('contactFormSuccess');
-    if (!form) return;
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      wrap.classList.add('is-submitted');
-      success.classList.add('is-visible');
-    });
-  })();
-</script>
+<script src="{% static 'website/js/support-enquiry.js' %}"></script>
 {% endblock %}

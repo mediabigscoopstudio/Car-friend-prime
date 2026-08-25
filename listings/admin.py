@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import (
     Seller, Dealer, Admin, KYC, Vehicle, Listing,
     Auction, Bid, OCB, Deal, DealerListing, Subscription,
-    Payment, Notification, Lead
+    Payment, Notification, Lead, SupportEnquiry
 )
 
 # ============================================
@@ -448,6 +448,29 @@ class LeadAdmin(admin.ModelAdmin):
         }),
         ('System', {
             'fields': ('id', 'created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    ordering = ('-created_at',)
+
+# ============================================
+# 16. SUPPORT ENQUIRY ADMIN
+# ============================================
+@admin.register(SupportEnquiry)
+class SupportEnquiryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'phone', 'source', 'subject', 'created_at']
+    list_filter = ['source', 'created_at']
+    search_fields = ['name', 'phone', 'email']
+    readonly_fields = ('id', 'created_at')
+    fieldsets = (
+        ('Contact', {
+            'fields': ('name', 'phone', 'email', 'account_number', 'source')
+        }),
+        ('Enquiry', {
+            'fields': ('subject', 'message')
+        }),
+        ('System', {
+            'fields': ('id', 'created_at'),
             'classes': ('collapse',)
         }),
     )

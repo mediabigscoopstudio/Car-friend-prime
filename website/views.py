@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 
-from listings.models import Lead
+from listings.models import Lead, SupportEnquiry
 
 # Base "as-new" reference price (INR) per brand/model, used only to derive a
 # demo depreciation estimate. Not real market data.
@@ -375,4 +375,72 @@ class CaptureDealerLeadView(View):
             'status': 'success',
             'message': 'Lead captured successfully',
             'lead_id': str(lead.id),
+        })
+
+
+class SupportEnquiryView(View):
+    """POST /api/support-enquiry/ — save an enquiry from the /support/ contact form."""
+
+    NAME_MIN = 2
+    SUBJECT_MIN = 3
+    MESSAGE_MIN = 10
+    PHONE_RE = re.compile(r'^[6-9]\d{9}$')
+    EMAIL_RE = re.compile(r'^[^@\s]+@[^@\s]+\.[^@\s]+$')
+
+    def post(self, request):
+        try:
+            data = json.loads(request.body or '{}')
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON body.'}, status=400)
+
+        name = str(data.get('name', '')).strip()
+        phone = str(data.get('phone', '')).strip()
+        email = str(data.get('email', '')).strip()
+        account_number = str(data.get('account_number', '')).strip()
+        source = str(data.get('source', '')).strip() or SupportEnquiry.Source.WEBSITE
+        subject = str(data.get('subject', '')).strip()
+        message = str(data.get('message', '')).strip()
+
+        errors = {}
+        if len(name) < self.NAME_MIN:
+            errors['name'] = 'Enter your name.'
+        if not self.PHONE_RE.match(phone):
+            errors['phone'] = 'Enter a valid 10-digit number.'
+        if not self.EMAIL_RE.match(email):
+            errors['email'] = 'Enter a valid email address.'
+        if len(subject) < self.SUBJECT_MIN:
+            errors['subject'] = 'Enter a subject.'
+        if len(message) < self.MESSAGE_MIN:
+            errors['message'] = 'Message must be at least 10 characters.'
+        if source not in SupportEnquiry.Source.values:
+            source = SupportEnquiry.Source.WEBSITE
+
+        if errors:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Please fix the errors below.',
+                'errors': errors,
+            }, status=400)
+
+        enquiry = SupportEnquiry.objects.create(
+            name=name,
+            phone=phone,
+            email=email,
+            account_number=account_number or None,
+            source=source,
+            subject=subject,
+            message=message,
+        )
+
+        return JsonResponse({
+            'status': 'success',
+            'message': f'Thank you, {name}! Our team is connecting with you under 12 hours.',
+            'enquiry_id': str(enquiry.id),
+            'enquiry': {
+                'name': enquiry.name,
+                'phone': enquiry.phone,
+                'email': enquiry.email,
+                'subject': enquiry.subject,
+                'created_time': enquiry.created_time,
+            },
         })

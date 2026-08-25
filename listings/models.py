@@ -656,3 +656,47 @@ class Lead(models.Model):
         if self.brand and self.model:
             return f'{self.brand} {self.model} ({self.year}) - {self.phone}'
         return f'Dealer signup — {self.name or "Unknown"} ({self.phone})'
+
+
+# ---------------------------------------------------------------------------
+# SupportEnquiry (support page contact form)
+# ---------------------------------------------------------------------------
+
+class SupportEnquiry(models.Model):
+    """Enquiries submitted via the /support/ contact form."""
+
+    class Source(models.TextChoices):
+        WEBSITE = 'website', 'Website'
+        SELLER = 'seller', 'Seller'
+        DEALER = 'dealer', 'Dealer'
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    email = models.EmailField()
+    account_number = models.CharField(max_length=50, blank=True, null=True)
+    source = models.CharField(max_length=20, choices=Source.choices, default=Source.WEBSITE)
+
+    subject = models.CharField(max_length=150)
+    message = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Support Enquiry'
+        verbose_name_plural = 'Support Enquiries'
+
+    def __str__(self):
+        return f'{self.subject} — {self.name}'
+
+    @property
+    def created_time(self):
+        """Display-only "Date • Time" string derived from created_at.
+
+        Not a stored field — storing a value that's just a formatted copy
+        of created_at would duplicate data for no benefit, so this is a
+        property instead.
+        """
+        return self.created_at.strftime('%d %b %Y • %I:%M %p')
