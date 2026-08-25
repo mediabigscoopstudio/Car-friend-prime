@@ -75,72 +75,75 @@ class VehicleEstimateView(View):
     condition adjustments), not a real valuation model. Surepass plate
     auto-fill is intentionally out of scope for this phase.
     """
-
     def post(self, request):
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    try:
         try:
             data = json.loads(request.body or '{}')
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON body.'}, status=400)
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON body.'}, status=400)
 
-        brand = str(data.get('brand', '')).strip()
-        model = str(data.get('model', '')).strip()
-        try:
-            year = int(data.get('year'))
-            mileage = int(data.get('mileage'))
-        except (TypeError, ValueError):
-            return JsonResponse({'error': 'year and mileage must be numbers.'}, status=400)
+        name = str(data.get('name', '')).strip()
+        phone = str(data.get('phone', '')).strip()
+        email = str(data.get('email', '')).strip()
+        account_number = str(data.get('account_number', '')).strip()
+        source = str(data.get('source', '')).strip() or SupportEnquiry.Source.WEBSITE
+        subject = str(data.get('subject', '')).strip()
+        message = str(data.get('message', '')).strip()
 
-        if not brand or not model:
-            return JsonResponse({'error': 'brand and model are required.'}, status=400)
-        if year < 2000 or year > CURRENT_YEAR:
-            return JsonResponse({'error': 'year out of range.'}, status=400)
-        if mileage < 0:
-            return JsonResponse({'error': 'mileage cannot be negative.'}, status=400)
+        errors = {}
+        if len(name) < self.NAME_MIN:
+            errors['name'] = 'Enter your name.'
+        if not self.PHONE_RE.match(phone):
+            errors['phone'] = 'Enter a valid 10-digit number.'
+        if not self.EMAIL_RE.match(email):
+            errors['email'] = 'Enter a valid email address.'
+        if len(subject) < self.SUBJECT_MIN:
+            errors['subject'] = 'Enter a subject.'
+        if len(message) < self.MESSAGE_MIN:
+            errors['message'] = 'Message must be at least 10 characters.'
+        if source not in SupportEnquiry.Source.values:
+            source = SupportEnquiry.Source.WEBSITE
 
-        accident = data.get('accident') == 'yes'
-        service_records = data.get('service_records') == 'yes'
-        ownership = data.get('ownership', '1st')
-        insurance_valid = data.get('insurance') == 'valid'
+        if errors:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Please fix the errors below.',
+                'errors': errors,
+            }, status=400)
 
-        base_price = _lookup_base_price(brand, model)
-
-        age_years = max(0, CURRENT_YEAR - year)
-        depreciated_value = base_price * (0.88 ** age_years)
-        depreciated_value = max(depreciated_value, base_price * 0.15)
-        depreciation = base_price - depreciated_value
-
-        expected_mileage = age_years * 12000
-        mileage_delta = mileage - expected_mileage
-        mileage_adjustment = -mileage_delta * 0.5
-        mileage_adjustment = max(-depreciated_value * 0.25, min(depreciated_value * 0.1, mileage_adjustment))
-
-        condition_pct = 0.0
-        condition_pct += -0.08 if accident else 0.0
-        condition_pct += 0.04 if service_records else 0.0
-        condition_pct += {'1st': 0.05, '2nd': 0.0, '3rd+': -0.06}.get(ownership, 0.0)
-        condition_pct += 0.02 if insurance_valid else -0.03
-        condition_adjustment = depreciated_value * condition_pct
-
-        final_estimate = depreciated_value + mileage_adjustment + condition_adjustment
-        final_estimate = max(final_estimate, base_price * 0.1)
-
-        low = round(final_estimate * 0.95, -3)
-        high = round(final_estimate * 1.05, -3)
+        enquiry = SupportEnquiry.objects.create(
+            name=name,
+            phone=phone,
+            email=email,
+            account_number=account_number or None,
+            source=source,
+            subject=subject,
+            message=message,
+        )
 
         return JsonResponse({
-            'min': low,
-            'max': high,
-            'breakdown': {
-                'base_price': round(base_price),
-                'age_years': age_years,
-                'depreciation': round(depreciation),
-                'mileage_adjustment': round(mileage_adjustment),
-                'condition_adjustment': round(condition_adjustment),
-                'final_estimate': round(final_estimate),
+            'status': 'success',
+            'message': f'Thank you, {name}! Our team is connecting with you under 12 hours.',
+            'enquiry_id': str(enquiry.id),
+            'enquiry': {
+                'name': enquiry.name,
+                'phone': enquiry.phone,
+                'email': enquiry.email,
+                'subject': enquiry.subject,
+                'created_time': enquiry.created_time,
             },
         })
-
-
+    
+    except Exception as e:
+        logger.error(f"SupportEnquiryView error: {str(e)}", exc_info=True)
+        return JsonResponse({
+            'status': 'error', 
+            'message': f'Server error: {str(e)}'
+        }, status=500)
+    
 def _call_surepass_rc_full(registration_number):
     """Look up a vehicle by registration number via Surepass RC Full.
 
